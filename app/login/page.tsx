@@ -6,12 +6,13 @@ import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
     const [name, setName] = useState("");
+    const [password, setPassword] = useState("");
     const { login } = useAuth();
     const router = useRouter();
 
     const handleLogin = () => {
         if (name.trim()) {
-            login(name);
+            login(name, password);
             router.push("/");
         }
     };
@@ -24,6 +25,13 @@ export default function LoginPage() {
                 placeholder="Enter your name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
+                className="p-2 border border-gray-300 rounded mb-4"
+            />
+            <input
+                type="password"
+                placeholder="Enter your password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 className="p-2 border border-gray-300 rounded mb-4"
             />
             <button
