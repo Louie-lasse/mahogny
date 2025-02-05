@@ -9,10 +9,15 @@ export default function LoginPage() {
     const [password, setPassword] = useState("");
     const { login } = useAuth();
     const router = useRouter();
+    const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
 
-    const handleLogin = () => {
+    const handleLogin = async () => {
         if (name.trim()) {
-            login(name, password);
+            const success = await login(name, password);
+            if (!success) {
+                setError("Invalid credentials");
+            }
             router.push("/");
         }
     };
@@ -38,7 +43,7 @@ export default function LoginPage() {
                 onClick={handleLogin}
                 className="bg-blue-500 text-white px-4 py-2 rounded"
             >
-                Login
+                {loading ? "Loading..." : "Login"}
             </button>
         </div>
     );
